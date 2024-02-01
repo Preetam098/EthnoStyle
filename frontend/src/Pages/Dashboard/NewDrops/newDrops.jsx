@@ -1,21 +1,30 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Layout from "../../../Layout/Index";
+import { useDispatch, useSelector } from "react-redux";
+import { productAction } from "../../../Redux/actions/productAction";
+import { useNavigate } from "react-router-dom";
+
 const Api = "https://fakestoreapi.com/products";
 
 const NewDrops = () => {
-  const [products, setProduct] = useState("");
   const [key, setKey] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [booking, setBooking] = useState({
     title: "",
     price: "",
     id: "",
   });
 
-  console.log("kkkk", key);
+  const product = useSelector((state) => state?.productReducer?.product);
+
+  const filterData = product.filter((data) => {
+    return data.category === "women's clothing";
+  });
+  console.log("ffff", filterData);
 
   const handleAddtoCart = (product) => {
-    console.log("e.target.value", product);
     const { title, price, id } = product;
     setBooking({
       ...booking,
@@ -23,117 +32,50 @@ const NewDrops = () => {
       price,
       id,
     });
-  };
-
-  const checkoutHandler = async (amount) => {
-    console.log("ammmmm", amount);
-
-    try {
-      const getKey = await fetch("http://localhost:5000/api/getkey", {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
-
-      const data = await getKey.json();
-      setKey(data.key);
-      console.log("keyy:", key);
-
-      const response = await fetch("http://localhost:5000/api/checkout", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ amount }),
-      });
-      const { order } = await response.json();
-      console.log("orrrder", order);
-      const options = {
-        key: key,
-        amount: order.amount,
-        currency: "INR",
-        name: "Preetam",
-        description: "Test ",
-        image: "https://dummyimage.com/250/ffffff/000000",
-        order_id: order.id,
-        callback_url: "http://localhost:5000/api/paymentVerification",
-        prefill: {
-          name: "Preetam",
-          email: "preetam@example.com",
-          contact: "9999555699",
-        },
-        notes: {
-          address: "Razorpay Corporate Office",
-        },
-        theme: {
-          color: "#121212",
-        },
-      };
-      const razor = new window.Razorpay(options);
-      razor.open();
-    } catch (error) {
-      console.error("Error during checkout:", error.message);
-    }
-  };
-
-  console.log("booking", booking);
-
-  const getData = async () => {
-    try {
-      const response = await fetch(Api, { method: "GET" });
-      if (!response.ok) {
-        throw new Error("Network response was not ok");
-      }
-      const data = await response.json();
-      setProduct(data);
-      console.log(data);
-    } catch (error) {
-      console.error("Error fetching data:", error.message);
-    }
+    // Pass the data using the state object
+    navigate(`/cart`, { state: product });
   };
 
   useEffect(() => {
-    getData();
+    dispatch(productAction());
   }, []);
   return (
-    <div className="text-center">
-      <h1 className="text-orange-600 text-5xl">Product List</h1>
-      <div className="product-list grid grid-cols-4 gap-2 place-content-top place-items-top p-10">
-        {products &&
-          products.map((product) => (
-            <div key={product.id} className="product-item text-center">
-              <img
-                src={product.image}
-                className=" border-2 p-2 border-black my-1"
-                alt={product.name}
-              />
-              <div className="bg-gray-300 p-1 px-auto py-auto text-xl text-black">
-                <h3>Product Name :- {product.title}</h3>
+    <div className=" my-10">
+      <div className="grid grid-cols-1  place-content-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+        {product?.map((product) => (
+          <div
+            key={product.id}
+            className="bg-white shadow-lg rounded-lg overflow-hidden"
+          >
+            <img
+              src={product.image}
+              className="w-40 h-48 object-cover mx-auto object-center"
+              alt={product.name}
+            />
 
-                <button className="text-sm rounded-full bg-gray-800 my-2 mx-2 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                  {"Price"} ${product.price.toFixed(2)}
-                </button>
+            <div className="p-4">
+              <h3 className="text-md font-medium text-[#2b79c2]">
+                {product.title}
+              </h3>
+              <p className="text-[#2b79c2] text-sm capitalize">
+                {product.category}
+              </p>
+              <div className="flex items-center justify-between mt-4">
+                <span className="text-lg font-semibold text-[#2b79c2]">
+                  ${product.price}
+                </span>
                 <button
-                  className="text-sm rounded-full my-2 bg-gray-800 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                  className="px-4 py-2 text-sm font-medium text-white bg-[#2b79c2] rounded-full hover:bg-[#1d5d8a] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#2b79c2]"
                   onClick={() => {
                     handleAddtoCart(product);
                   }}
                 >
-                  {"Add to Cart"}
-                </button>
-
-                <button
-                  className="mx-2 text-sm rounded-full my-2 bg-gray-800 p-2 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                  onClick={() => {
-                    checkoutHandler(product.price);
-                  }}
-                >
-                  Buy Now
+                  Add to Cart
                 </button>
               </div>
             </div>
-          ))}
+          </div>
+        ))}
       </div>
     </div>
   );

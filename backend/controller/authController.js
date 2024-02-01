@@ -4,6 +4,8 @@ var jwt = require("jsonwebtoken");
 const JWT = process.env.JWT_SECRET_KEY;
 const bcrypt = require("bcrypt");
 const { sendMail } = require("../helpers/OTPGenerate");
+const verifyAccessToken = require('../helpers/verifyAccessToken')
+
 
 function generateOTP() {
   return Math.floor(1000 + Math.random() * 9000);
@@ -121,6 +123,7 @@ const forgotPassword = async (req, res) => {
   }
 };
 
+//verify OTP
 const verifyOTP = async (req, res) => {
   try {
     const { otp, id, newPassword } = req.body;

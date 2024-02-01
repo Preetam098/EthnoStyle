@@ -1,8 +1,71 @@
 import React from 'react'
-import Layout from '../../Layout/Index'
-const cartPage = () => {
+import Layout from '../../../Layout/Index'
+import { useLocation,  } from 'react-router-dom'
+
+
+
+const CartPage = () => {
+  const location = useLocation();
+const data = location.state ||{}
+
+console.log("booking ", data)
+
+
+  // const checkoutHandler = async (amount) => {
+  //   console.log("ammmmm", amount);
+
+  //   try {
+  //     const getKey = await fetch("http://localhost:5000/api/getkey", {
+  //       method: "GET",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //     });
+
+  //     const data = await getKey.json();
+  //     setKey(data.key);
+  //     console.log("keyy:", key);
+
+  //     const response = await fetch("http://localhost:5000/api/checkout", {
+  //       method: "POST",
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //       },
+  //       body: JSON.stringify({ amount }),
+  //     });
+  //     const { order } = await response.json();
+  //     console.log("orrrder", order);
+  //     const options = {
+  //       key: key,
+  //       amount: order.amount,
+  //       currency: "INR",
+  //       name: "Preetam",
+  //       description: "Test ",
+  //       image: "https://dummyimage.com/250/ffffff/000000",
+  //       order_id: order.id,
+  //       callback_url: "http://localhost:5000/api/paymentVerification",
+  //       prefill: {
+  //         name: "Preetam",
+  //         email: "preetam@example.com",
+  //         contact: "9999555699",
+  //       },
+  //       notes: {
+  //         address: "Razorpay Corporate Office",
+  //       },
+  //       theme: {
+  //         color: "#121212",
+  //       },
+  //     };
+  //     const razor = new window.Razorpay(options);
+  //     razor.open();
+  //   } catch (error) {
+  //     console.error("Error during checkout:", error.message);
+  //   }
+  // };
+
+
   return (
-    <div class="h-screen bg-gray-100 pt-20">
+    <div class="bg-gray-100 py-10">
     <h1 class="mb-10 text-center text-2xl font-bold">Cart Items</h1>
     <div class="mx-auto max-w-5xl justify-center px-6 md:flex md:space-x-6 xl:px-0">
       <div class="rounded-lg md:w-2/3">
@@ -76,4 +139,4 @@ const cartPage = () => {
   )
 }
 
-export default Layout(cartPage);
+export default Layout(CartPage);

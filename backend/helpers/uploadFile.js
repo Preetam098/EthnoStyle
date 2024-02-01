@@ -20,7 +20,7 @@ const limits = {
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    const destination = `/uploads/banner`;
+    const destination = `./uploads/banner`;
     if (!fs.existsSync(destination)) {
       fs.mkdirSync(destination, { recursive: true });
     }

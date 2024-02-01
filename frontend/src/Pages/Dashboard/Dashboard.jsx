@@ -1,32 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 // import Logo from "./icon.png";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 import Layout from "../../Layout/Index";
+import Card from "../../Components/Card.js";
+import { useDispatch, useSelector } from "react-redux";
+import { bannerListAction } from "../../Redux/actions/bannerAction.js";
 
-const Data = [
-  {
-    image:
-      "https://cdn-media.powerlook.in/catalog/product/cache/a355f488ce208bb58a90660f35cdc6e0/5/0/504-955430-3.jpg",
-  },
-  {
-    image:
-      "https://cdn-media.powerlook.in/catalog/product/cache/a355f488ce208bb58a90660f35cdc6e0/d/p/dp02-979621-1.jpg",
-  },
-  {
-    image:
-      "https://cdn-media.powerlook.in/catalog/product/cache/a355f488ce208bb58a90660f35cdc6e0/d/p/dp02-989521-3.jpg",
-  },
-  {
-    image:
-      "https://cdn-media.powerlook.in/catalog/product/cache/a355f488ce208bb58a90660f35cdc6e0/5/0/503-953350.jpg",
-  },
-];
 const DashBoard = () => {
+  const dispatch = useDispatch();
+  const bannerData = useSelector((state) => state?.bannerReducer?.list?.result);
+
+  console.log("dataa", bannerData);
+
+  useEffect(() => {
+    dispatch(bannerListAction());
+  }, []);
+
   const responsive = {
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 3,
+      items: 1,
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -40,38 +34,42 @@ const DashBoard = () => {
   return (
     <>
       <div className="my-2">
-        <div  className="p-2">
-          <Carousel
-            autoPlaySpeed={3000}
-            arrows={false}
-            autoPlay={true}
-            showDots={true}
-            infinite={true}
-            responsive={responsive}
-            className=" mx-4 hover:bg-white hover:text-center "
-          >
-            {Data.map((item , index) => {
-              return (
+        <div className="p-2 w-full">
+          {bannerData && bannerData.length > 0 ? (
+            <Carousel
+              autoPlaySpeed={3000}
+              ssr={false}
+              arrows={false}
+              autoPlay={true}
+              showDots={true}
+              infinite={true}
+              responsive={responsive}
+              className=" mx-4 hover:bg-white hover:text-center "
+            >
+              {bannerData?.map((item, index) => (
                 <>
-                <div >
-                
-                  <img
-                    src={item.image}
-                    alt="image 2"
-                    className="rounded-md w-11/12"
-                  />          
-                </div>
+                  <div className="">
+                    <img
+                      src={item?.link}
+                      alt="image 2"
+                      className="rounded-md mx-auto h-96 object-center object-cover w-full"
+                    />
+                  </div>
                 </>
-              );
-            })}
-          </Carousel>
+              ))}
+            </Carousel>
+          ) : (
+            []
+          )}
         </div>
+        <section className="card">
+          <Card />
+        </section>
       </div>
     </>
   );
 };
 
 // const WrappedDashboard = Layout(DashBoard);
-
 
 export default Layout(DashBoard);

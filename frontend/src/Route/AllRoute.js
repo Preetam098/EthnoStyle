@@ -10,7 +10,7 @@ const Tops = lazy(() => import("../Pages/Dashboard/Tops/tops"));
 const Bottom = lazy(() => import("../Pages/Dashboard/Bottom/bottom"));
 const Accessories = lazy(() => import("../Pages/Dashboard/Accessories/accessories"));
 const Drop = lazy(() => import("../Pages/Dashboard/NewDrops/newDrops"));
-const Cart = lazy(() => import("../Pages/Dashboard/CartPage"));
+const Cart = lazy(() => import("../Pages/Dashboard/Cart/CartPage"));
 const PaymentSuccess = lazy(() => import("../Pages/Dashboard/Cart/paymentSuccess"));
 
 const AllRoutes = [

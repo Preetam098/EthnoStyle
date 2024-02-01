@@ -7,7 +7,7 @@ const Layout = (Component) => {
   return  ()=>(
     <div className="container mx-auto ">
       <Header />
-      <div className="h-full my-2">
+      <div className="container mx-auto px-2 h-full my-2">
         <Component />
       </div>
       <Footer />

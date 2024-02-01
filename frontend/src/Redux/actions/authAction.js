@@ -14,7 +14,7 @@ import {
   PASSWORD_UPDATE_FAIL,
 } from "./index";
 import axios from "axios";
-import { login_url, signup_url, otp_url, verify_otp_url } from "../../Utils/endpoints/index";
+import { login_url, signup_url, otp_url, verify_otp_url } from "../../Utils/endpoints/api";
 
 export const registerAction = (payload, callback) => async (dispatch) => {
   dispatch({ type: SIGN_UP });

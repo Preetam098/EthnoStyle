@@ -6,6 +6,7 @@ const PaymentSuccess = () => {
   const searchQuery = useSearchParams()[0];
   const reference = searchQuery.get("reference");
 
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <div className="bg-white p-8 rounded shadow-md w-96">

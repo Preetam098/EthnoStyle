@@ -23,7 +23,10 @@ const createBanner = async (req, res) => {
         image: req.file.filename,
       });
       const result = await newBanner.save();
-      return res.json({ message: "New Banner Added Successfully", result });
+      return successHandler(res, {
+        message: "New Banner Added Successfully",
+        result
+      });
     } catch (error) {
       return res.status(500).json({ error: "Internal Server Error" });
     }
@@ -56,7 +59,6 @@ const deleteBanner = async (req, res) => {
   } else {
     successHandler(res, {
         message: "Banner Deleted",
-        
       });
   }
 };
