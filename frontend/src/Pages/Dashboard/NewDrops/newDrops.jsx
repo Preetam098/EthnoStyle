@@ -22,6 +22,7 @@ const NewDrops = () => {
   const filterData = product.filter((data) => {
     return data.category === "women's clothing";
   });
+
   console.log("ffff", filterData);
 
   const handleAddtoCart = (product) => {
@@ -32,13 +33,14 @@ const NewDrops = () => {
       price,
       id,
     });
-    // Pass the data using the state object
     navigate(`/cart`, { state: product });
   };
+
 
   useEffect(() => {
     dispatch(productAction());
   }, []);
+
   return (
     <div className=" my-10">
       <div className="grid grid-cols-1  place-content-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">

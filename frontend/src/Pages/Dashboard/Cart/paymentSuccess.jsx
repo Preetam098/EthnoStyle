@@ -1,15 +1,21 @@
-import React from "react";
-import { useSearchParams } from "react-router-dom";
 import Layout from "../../../Layout/Index";
+import { Button } from "../../../Components/Button";
+import React, { useEffect } from "react";
+import { Link, useSearchParams } from "react-router-dom";
+import ConfettiAnimation from "../../../Components/PartyBomb";
 
-const PaymentSuccess = () => {
-  const searchQuery = useSearchParams()[0];
-  const reference = searchQuery.get("reference");
 
+// Your main component
+const PaymentSuccess = ({ reference }) => {
+const searchQuery = useSearchParams()[0]
+const refeence  = searchQuery.get("reference")
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-100">
-      <div className="bg-white p-8 rounded shadow-md w-96">
+    <React.Fragment>
+    <div className="h-[400px] relative flex items-center justify-center bg-gray-100">
+<ConfettiAnimation/>
+  
+      <div className="absolute z-50 bg-white p-8 rounded shadow-md w-96">
         <div className="text-green-600 mb-4">
           {/* Success Icon Animation */}
           <svg
@@ -27,12 +33,22 @@ const PaymentSuccess = () => {
         </div>
         <div className="text-center">
           <div className="text-xl font-semibold mb-4">Payment Success</div>
-          <h1 className="text-2xl mb-8">Reference Number: {reference}</h1>
+          <h1 className="text-2xl mb-8">Reference Number: {refeence}</h1>
+        </div>
+        <div className="text-center">
+          <Link to="/dashboard">
+            <Button className="mx-auto hover:underline" name="Back To Home">
+              {/* Your Button Component */}
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
+</React.Fragment>
+
   );
 };
 
-export default Layout(PaymentSuccess);
 
+
+export default Layout(PaymentSuccess);

@@ -3,7 +3,7 @@ const router = Router();
 
 const bannerRouter = require("./bannerRoute");
 const paymentRoutes = require("./paymentRoutes");
-const registerRouter = require("./registerUser");
+const registerRouter = require("./registerRoutes");
 const productRouter = require("./productRoutes");
 
 router.use("/api", paymentRoutes);

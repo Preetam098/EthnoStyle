@@ -11,3 +11,17 @@ body {
     -webkit-appearance: none;
     margin: 0;
   }
+
+/* 
+  .space-y-6 > :not([hidden]) ~ :not([hidden]) {
+    --tw-space-y-reverse: 0;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+} */
+
+
+space-y-6 > :not([hidden]) ~ :not([hidden]) {
+  --tw-space-y-reverse: 0;
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}

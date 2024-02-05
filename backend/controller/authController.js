@@ -4,8 +4,9 @@ var jwt = require("jsonwebtoken");
 const JWT = process.env.JWT_SECRET_KEY;
 const bcrypt = require("bcrypt");
 const { sendMail } = require("../helpers/OTPGenerate");
-const verifyAccessToken = require('../helpers/verifyAccessToken')
-
+const verifyAccessToken = require("../helpers/verifyAccessToken");
+const errorHandler = require("../helpers/errorHandler");
+const successHandler = require("../helpers/successHandler");
 
 function generateOTP() {
   return Math.floor(1000 + Math.random() * 9000);
@@ -13,7 +14,6 @@ function generateOTP() {
 // Register Controller
 const registerUser = async (req, res) => {
   try {
-    // console.log("Request Body:", req.body);
     const { username, email, password, mobileNo, dob } = req.body;
     const existingUser = await RegisterModel.findOne({ email });
     if (existingUser) {
@@ -27,8 +27,21 @@ const registerUser = async (req, res) => {
         mobileNo,
         dob,
       });
+
       await newUser.save();
-      res.status(200).send({ message: "User Creation Successfully " });
+      const responseData = {
+        _id: newUser._id.toString(),
+        username: newUser.username,
+        email: newUser.email,
+        mobileNo: newUser.mobileNo,
+        dob: newUser.dob,
+      };
+      const token = jwt.sign({ user: newUser._id }, JWT);
+      res.status(200).send({
+        message: "User Creation Successfully ",
+        user: responseData,
+        token,
+      });
     }
   } catch (err) {
     res.status(400).send({ message: `User Creation Failed  ${err.message}` });
@@ -45,8 +58,16 @@ const loginUser = async (req, res) => {
         const passwordMatch = bcrypt.compareSync(password, user.password);
         if (passwordMatch) {
           const token = jwt.sign({ user: user._id }, JWT);
-          res.status(200).json({ message: "Login Successfully", token });
-          // console.log("token", token);
+          const responseData = {
+            _id: user._id.toString(),
+            username: user.username,
+            email: user.email,
+            mobileNo: user.mobileNo,
+            dob: user.dob,
+          };
+          res
+            .status(200)
+            .json({ message: "Login Successfully", token, user: responseData });
         } else {
           res.status(401).send({ message: "Invalid Password" });
         }
@@ -167,4 +188,66 @@ const verifyOTP = async (req, res) => {
   }
 };
 
-module.exports = { registerUser, loginUser, forgotPassword, verifyOTP };
+// reset Password
+const resetPassword = async (req, res) => {
+  const { _id, newPassword, oldPassword } = req.body;
+  try {
+    const user = await RegisterModel.findById(_id);
+    if (!user) {
+      res.status(400);
+      return errorHandler(res, "User not found");
+    }
+    const isOldPassword = await bcrypt.compare(oldPassword, user.password);
+    if (!isOldPassword) {
+      res.status(400);
+      return errorHandler(res, "Old password is incorrect");
+    }
+    const securedPassword = await bcrypt.hash(newPassword, 10);
+    await RegisterModel.findByIdAndUpdate(_id, {
+      $set: { password: securedPassword },
+    });
+    successHandler(res, { message: "Password updated successfully" });
+  } catch (error) {
+    console.log(error);
+    res.status(400);
+    errorHandler(res, "Error Updating Password");
+  }
+};
+
+const updateProfile = async (req, res) => {
+  console.log("ussss", req.user);
+  const { username, mobileNo, dob } = req.body;
+  if (!username && !mobileNo && !dob) {
+    return res.status(400).json({ message:"No valid fields provided for update." });
+  }
+  try {
+    const updatedProfile = await RegisterModel.findByIdAndUpdate(
+      req.user.user,
+      { $set: { username, mobileNo, dob } },
+      { new: true, runValidators: true }
+    );
+    if (!updatedProfile) {
+      return res.status(404).json({ error: "User not found" });
+    }
+    const updateProfile={
+      _id:updatedProfile._id.toString(),
+      username:updatedProfile.username,
+      mobileNo:updatedProfile.mobileNo,
+      dob:updatedProfile.dob,
+    }
+    res.json({ message: "Profile updated successfully", updateProfile });
+  } catch (error) {
+    console.error("Error updating profile:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+
+module.exports = {
+  registerUser,
+  loginUser,
+  forgotPassword,
+  verifyOTP,
+  updateProfile,
+  resetPassword,
+};

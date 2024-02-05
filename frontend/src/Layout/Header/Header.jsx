@@ -2,6 +2,9 @@ import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import Logo from "../../Assets/Logo.svg";
+import { FaUser } from "react-icons/fa";
+import { FaBars } from "react-icons/fa6";
+
 const Header = () => {
   const navigate = useNavigate("");
   const [toggle, setToggle] = useState(false);
@@ -13,6 +16,9 @@ const Header = () => {
     localStorage.removeItem("AccessToken");
     navigate("/");
   };
+
+  const userLogin = localStorage.getItem("User");
+
   return (
     <header className=" bg-white-600 text-md  bg-[#d3e7fa] text-[#2B79C2]">
       <div className="container mx-auto px-2 md:px-6 py-2">
@@ -51,35 +57,26 @@ const Header = () => {
             </div>
           )}
 
-          <div className="md:order-2 order-1 flex justify-between items-center flex-shrink-0  lg:flex">
-            <div>
-              <a href="/cart">
-                <FaShoppingCart className="w-6 h-6 md:mr-4" />
+          <div className="md:order-2 order-1 flex justify-center items-center flex-shrink-0  lg:flex">
+            <a href="/cart">
+              <FaShoppingCart className="w-6 h-6 md:mr-4" />
+            </a>
+
+            {/* {userLogin ? ( */}
+              <a href="/profile">
+                <FaUser className="w-7 h-7 mr-4 border border-[#2b79c2] p-1 rounded-full" />
               </a>
-            </div>
+            {/* ) : ( */}
+              <button
+                onClick={handleLogin}
+                className="hidden md:block  px-6 py-2 font-semibold rounded bg-[#2B79C2] text-white"
+              >
+                Log in
+              </button>
+            {/* )} */}
 
             <button onClick={handleToggle} className="p-4 md:hidden">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-                className="w-6 h-6 text-[#2B79C2]"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
-              </svg>
-            </button>
-
-            <button
-              onClick={handleLogin}
-              className="hidden md:block  px-6 py-2 font-semibold rounded bg-[#2B79C2] text-white"
-            >
-              Log in
+              <FaBars />
             </button>
           </div>
         </div>

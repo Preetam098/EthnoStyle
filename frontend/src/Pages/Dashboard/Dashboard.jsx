@@ -52,7 +52,7 @@ const DashBoard = () => {
                     <img
                       src={item?.link}
                       alt="image 2"
-                      className="rounded-md mx-auto h-96 object-center object-cover w-full"
+                      className="rounded-md mx-auto h-[26rem] object-center object-cover w-full"
                     />
                   </div>
                 </>

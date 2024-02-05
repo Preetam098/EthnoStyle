@@ -28,10 +28,10 @@ const paymentVerification = async (req, res) => {
   if (isAuthentic) {
     //Data
     res.redirect(
-      `https://localhost:3001/pay-done?reference=${razorpay_payment_id}`
+      `http://localhost:3000/pay-done?reference=${razorpay_payment_id}`
     );
-    console.log("received" , razorpay_signature)
-    console.log("generated" , expectedSignature)
+    // console.log("received" , razorpay_signature)
+    // console.log("generated" , expectedSignature)
  
   } else {
     res.status(400).json({ success: false,});

@@ -3,15 +3,17 @@ import React from "react";
 import Header from "../Layout/Header/Header";
 import Footer from "../Layout/Footer/Footer";
 import ForgotPassword from "../Pages/Login/ForgotPassword";
+
 const Login = lazy(() => import("../Pages/Login/login"));
 const Register = lazy(() => import("../Pages/Register/register"));
 const Dashboard = lazy(() => import("../Pages/Dashboard/Dashboard"));
 const Tops = lazy(() => import("../Pages/Dashboard/Tops/tops"));
 const Bottom = lazy(() => import("../Pages/Dashboard/Bottom/bottom"));
-const Accessories = lazy(() => import("../Pages/Dashboard/Accessories/accessories"));
+const Accessories = lazy(() =>import("../Pages/Dashboard/Accessories/accessories"));
 const Drop = lazy(() => import("../Pages/Dashboard/NewDrops/newDrops"));
 const Cart = lazy(() => import("../Pages/Dashboard/Cart/CartPage"));
-const PaymentSuccess = lazy(() => import("../Pages/Dashboard/Cart/paymentSuccess"));
+const Profile = lazy(() => import("../Pages/Profile/Profile"));
+const PaymentSuccess = lazy(() =>import("../Pages/Dashboard/Cart/paymentSuccess"));
 
 const AllRoutes = [
   {
@@ -32,8 +34,7 @@ const AllRoutes = [
     element: <Register />,
     private: false,
   },
- 
- 
+
   {
     name: "Dashboard",
     path: "/dashboard",
@@ -74,6 +75,12 @@ const AllRoutes = [
     name: "PaymentSuccess",
     path: "/pay-done",
     element: <PaymentSuccess />,
+    private: true,
+  },
+  {
+    name: "Profile",
+    path: "/profile",
+    element: <Profile />,
     private: true,
   },
 ];
