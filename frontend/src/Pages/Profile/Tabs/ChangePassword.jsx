@@ -7,24 +7,30 @@ import toast, { ToastBar, Toaster } from "react-hot-toast";
 
 const ChangePassword = () => {
   // const getUserData = localStorage.getitem("User");
-  const User = JSON.parse(localStorage.getItem("User"));
+  const user = JSON.parse(localStorage.getItem("User"));
   const [userData, setUserData] = useState({});
   const dispatch = useDispatch("");
 
-  console.log("user", User._id);
+  console.log("user", user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { oldPassword, newPassword, confirmPassword } = userData;
-    if (!oldPassword || !newPassword) {
-      toast.error("Plase Fill All Requires Fields");
+    if (!oldPassword || !newPassword || !confirmPassword) {
+      toast.error("Please Fill All Required Fields");
+    } else if (newPassword !== confirmPassword) {
+      toast.error("New password and confirm password do not match");
     } else {
-      dispatch(resetPassword({ _id: User._id, newPassword, oldPassword }));
+      dispatch(resetPassword({ _id: user._id, newPassword, oldPassword }));
+      dispatch({ type: 'RESET_USER_DATA' }); 
     }
   };
+  
+
   const handleInput = (e) => {
     setUserData({ ...userData, [e.target.name]: e.target.value });
   };
+
   return (
     <section>
       <div className="container">

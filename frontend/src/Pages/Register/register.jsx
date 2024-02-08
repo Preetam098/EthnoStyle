@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo  from "../../Assets/Logo.svg";
 import {registerAction} from "../../Redux/actions/authAction";
 import toast from "react-hot-toast";
@@ -168,9 +168,9 @@ export default function Login() {
         <div className=" my-2 text-center">
           <p>
             Already Have an Account ?{" "}
-            <a href="/" className="underline text-[#2B79C2]">
+            <Link href="/" className="underline text-[#2B79C2]">
               Log In
-            </a>
+            </Link>
           </p>
         </div>
       </div>

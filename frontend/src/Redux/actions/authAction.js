@@ -106,14 +106,14 @@ export const resetPassword = (payload, callback) => async (dispatch) => {
         Authorization: `Bearer ${AccessToken}`,
       },
     });
-    const { message } = response?.data;
-    toast.success(message);
+    // const { message } = response?.data;
+    toast.success(response?.data?.message);
     dispatch({ type: RESET_PASSWORD_SUCCESS });
     callback();
   } catch (error) {
     console.log("eeee", error?.response?.data);
     // const { message } = error?.response?.data;
-    // toast.error(message);
+    toast.error(error?.response?.data?.message);
     dispatch({ type: RESET_PASSWORD_FAIL, error });
   }
 };

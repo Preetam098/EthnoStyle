@@ -4,9 +4,10 @@ import {
   RESET_PASSWORD_FAIL,
 } from "../actions";
 
+export const RESET_USER_DATA = 'RESET_USER_DATA';
+
 const intialState = {
   loading: false,
-  
 };
 
 const resetReducer = (state = intialState, action) => {
@@ -17,6 +18,8 @@ const resetReducer = (state = intialState, action) => {
       return { ...state, loading: true, };
     case RESET_PASSWORD_FAIL:
       return { ...state, loading: false };
+      case RESET_USER_DATA:
+      return { ...state, userData: { oldPassword: '', newPassword: '', confirmPassword: '' } };
     default:
       return state;
   }

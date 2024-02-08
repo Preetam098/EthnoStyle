@@ -71,12 +71,12 @@ const Login = () => {
                 Password
               </label>
               <div className="text-sm">
-                <a
-                  href="/forgot-password"
+                <Link
+                  to="/forgot-password"
                   className="font-semibold text-[#2B79C2] hover:underline hover:text-[#2d69a0]"
                 >
                   Forgot password ?
-                </a>
+                </Link>
               </div>
             </div>
             <div className="mt-2">
@@ -105,7 +105,7 @@ const Login = () => {
             <Link to="/register">
               <p className="py-2 ">
                 Create an Account ?{" "}
-                <a className="underline text-[#2B79C2]">Sign in</a>
+                <span className="underline text-[#2B79C2]">Sign in</span>
               </p>
             </Link>
           </div>

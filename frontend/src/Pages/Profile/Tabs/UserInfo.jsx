@@ -1,24 +1,44 @@
 import React, { useState, useEffect, memo } from "react";
 import { Button } from "../../../Components/Button";
 import { useDispatch, useSelector } from "react-redux";
+import SimpleReactValidator from "simple-react-validator";
+
 import { updateProfile } from "../../../Redux/actions/authAction";
 
 const UserInfo = () => {
+  const getUserData = JSON.parse(localStorage.getItem("User"));
   const dispatch = useDispatch("");
   const [update, setUpdate] = useState({});
+  const validate = new SimpleReactValidator({});
+  const [error, setError] = useState("");
+  const [isEditMode, setisEditMode] = useState(false);
+  const [userInfo, setUserInfo] = useState({
+    _id: getUserData._id,
+    username: getUserData ? getUserData.username : "",
+    email: getUserData ? getUserData.email : "",
+    mobileNo: getUserData ? getUserData.mobileNo : "",
+    dob: getUserData ? getUserData.dob : "",
+  });
 
   const handelInput = (e) => {
-    setUpdate({ ...update, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setUserInfo({ ...userInfo, [name]: value });
+    setError({ ...update, [e.target.name]: " " });
   };
 
   const handleSubmit = () => {
-    const callBack = () => {
-      console.log("hho rhhah ");
-    };
-    dispatch(updateProfile(update, callBack));
+    if (validate.allValid()) {
+      const callBack = () => {
+        localStorage.setItem("User", JSON.stringify(userInfo));
+        setisEditMode(false);
+      };
+      dispatch(updateProfile(userInfo, callBack));
+    } else {
+      validate.showMessages();
+      setError(validate.errorMessages);
+    }
   };
 
-  console.log("update", update);
   return (
     <React.Fragment>
       <div className="dark:border-neutral-700 bg-white dark:bg-neutral-800 orderdetails-sec">
@@ -28,152 +48,141 @@ const UserInfo = () => {
           </div>
           <div className="container lg:mb-32 mt-5 pb-5">
             <div className="w-1/2 dark:bg-neutral-900">
-              <div className="w-full mx-auto space-y-6 ">
-                <div className="flex items-center  mb-4">
-                  <label className="w-full block text-neutral-800 dark:text-neutral-200 ">
+              <div className="w-full mx-auto">
+                <div className="flex items-center ">
+                  <label className="w-full block text-neutral-800">
                     Username
                   </label>
                   <input
                     onChange={handelInput}
                     type="text"
-                    value={update.username}
+                    value={userInfo.username ? userInfo.username : ""}
                     name="username"
                     placeholder="example_01"
-                    className="mt-1 rounded-2xl  p-2 w-full border-2 bg-#2b79c2 focus:outline-none focus:border-[#2b79c2]"
-                    // value={formData.firstname}
-                    // onChange={handleInputChange}
-                    // disabled={!formData.isEditMode}
-                    // style={
-                    //   !formData.isEditMode ? { border: "0px solid" } : {}
-                    // }
+                    className="mt-1 rounded-2xl text-[#2b79c2] p-2 w-full "
+                    disabled={!isEditMode}
+                    style={isEditMode ? { border: "2px solid #2b79c2" } : {}}
                   />
-                  <div></div>
                 </div>
-                <div className="text-right">
-                  {/* {errorMessage && (
-                      <p className="text-red-500 p-1 text-sm">
-                        {errorMessage?.firstname}
-                      </p>
-                    )} */}
-                  {/* {validate.message(
-                      "firstname",
-                      formData?.firstname,
-                      "required"
-                    )} */}
+                
+
+                <div className="text-right w-11/12">
+                  {validate.message("username", userInfo?.username, "required")}
+                  {error && (
+                    <p className="text-red-500 my-2 text-sm">
+                      {error?.username}
+                    </p>
+                  )}
                 </div>
 
-                <div className="text-right">
-                  {/* {validate.message(
-                      "lastname",
-                      formData?.lastname,
-                      "required"
-                    )}
-                    {errorMessage && (
-                      <p className="text-red-500 p-1 text-sm">
-                        {errorMessage?.lastname}
-                      </p>
-                    )} */}
-                </div>
-
-                <div className="flex items-center mb-4">
-                  <label className="w-full block text-neutral-800 dark:text-neutral-200 ">
-                    Email address
-                  </label>
+                <div className="flex items-center my-4 ">
+                  <label className="w-full block ">Email Address</label>
                   <input
                     onChange={handelInput}
                     type="email"
-                    value={update.email}
                     name="email"
-                    placeholder="example@example.com"
-                    className="mt-1 rounded-2xl  p-2 w-full border-2 bg-#2b79c2 focus:outline-none focus:border-[#2b79c2]"
-                    // value={userInfo.email ? userInfo.email : formData?.email}
-                    // onChange={handleInputChange}
-                    // disabled
-                    // style={
-                    //   !formData.isEditMode ? { border: "0px solid" } : {}
-                    // }
-                    // readOnly={true}
+                    readOnly={true}
+                    value={userInfo.email ? userInfo.email : ""}
+                    disabled={!isEditMode}
+                    placeholder="example@.com"
+                    className={
+                      isEditMode
+                        ? "mt-1 rounded-2xl text-[#2b79c2] p-2 w-full"
+                        : " mt-1 rounded-2xl text-[#2b79c2] p-2 w-full "
+                    }
+                    style={isEditMode ? { border: "2px solid #2b79c2" } : {}}
                   />
                 </div>
 
-                <div className="flex items-center mb-4">
-                  <label className="w-full block text-neutral-800 dark:text-neutral-200 ">
-                    MobileNo
-                  </label>
+
+                <div className="text-right w-11/12">
+                  {validate.message("email", userInfo?.email, "required")}
+                  {error && (
+                    <p className="text-red-500 my-2 text-sm">
+                      {error?.email}
+                    </p>
+                  )}
+                </div>
+
+
+                <div className="flex items-center my-4">
+                  <label className="w-full block ">MobileNo</label>
                   <input
                     onChange={handelInput}
                     type="number"
                     name="mobileNo"
-                    value={update.mobileNo}
+                    value={userInfo.mobileNo ? userInfo.mobileNo : ""}
+                    disabled={!isEditMode}
                     placeholder="+123 456 789"
-                    className="mt-1 rounded-2xl  p-2 w-full border-2 bg-#2b79c2 focus:outline-none focus:border-[#2b79c2]"
-                    // value={formData.lastname}
-                    // onChange={handleInputChange}
-                    // disabled={!formData.isEditMode}
-                    // style={
-                    //   !formData.isEditMode ? { border: "0px solid" } : {}
-                    // }
+                    className="mt-1 rounded-2xl text-[#2b79c2] p-2 w-full"
+                    style={isEditMode ? { border: "2px solid #2b79c2" } : {}}
                   />
                 </div>
 
+                <div className="text-right w-11/12">
+                  {validate.message("mobile No", userInfo?.mobileNo, "required")}
+                  {error && (
+                    <p className="text-red-500 my-2 text-sm">
+                      {error?.mobileNo}
+                    </p>
+                  )}
+                </div>
+
+
                 <div className="flex items-center mb-4">
-                  <label className="w-full block text-neutral-800 dark:text-neutral-200 ">
-                    Date Of Birth
-                  </label>
+                  <label className="w-full block  ">Date Of Birth</label>
                   <input
                     onChange={handelInput}
                     type="date"
-                    value={update.dob}
+                    value={userInfo.dob ? userInfo.dob : ""}
+                    disabled={!isEditMode}
                     name="dob"
                     placeholder="mm/dd/yyyy"
-                    className="mt-1 rounded-2xl  p-2 w-full border-2 bg-#2b79c2 focus:outline-none focus:border-[#2b79c2]"
+                    className="mt-1 rounded-2xl text-[#2b79c2] p-2 w-full "
                     // value={formData.mobile}
                     // onChange={handlePhoneNumber}
                     // disabled={!formData.isEditMode}
-                    // style={
-                    //   !formData.isEditMode ? { border: "0px solid" } : {}
-                    // }
+                    style={isEditMode ? { border: "2px solid #2b79c2" } : {}}
                   />
                 </div>
-                <div className="text-right">
-                  {/* {!isValidPhoneNumber && (
-                      <p className="text-red-500">
-                        Please enter a valid phone number.
-                      </p>
-                    )} */}
+                <div className="text-right w-11/12">
+                  {validate.message("date of birth ", userInfo?.dob, "required")}
+                  {error && (
+                    <p className="text-red-500 my-2 text-sm">
+                      {error?.dob}
+                    </p>
+                  )}
                 </div>
 
-                {/* {!formData.isEditMode ? (
-                    <ButtonPrimary className="" onClick={handleEditClick}>
-                      Request To Edit
-                    </ButtonPrimary>
+
+              
+
+                <div className="my-5">
+                  {!isEditMode ? (
+                    <Button
+                      className="my-5 rounded-xl w-full "
+                      name="Request To Edit"
+                      onClick={() => setisEditMode(true)}
+                    ></Button>
                   ) : (
-                    <div className="d-flex my-5">
-                      <ButtonPrimary
-                        className="w-100 mr-1"
-                        onClick={handleCancelClick}
-                      >
-                        Cancel
-                      </ButtonPrimary>
-                      <ButtonPrimary
-                      onChange={handelInput}  
-                      type="submit"
-                        className="ml-1 w-100 "
+                    <div className="flex gap-4 justify-between">
+                      <Button
+                        name="Cancel"
+                        className="rounded-xl  w-full"
+                        onClick={() => setisEditMode(false)}
+                        type="Submit"
+                      ></Button>
+                      <Button
+                        type="submit"
+                        className=" rounded-xl w-full "
+                        name="Update"
                         onClick={handleSubmit}
                       >
-                        Update
-                      </ButtonPrimary>
+                        {" "}
+                      </Button>
                     </div>
-                  )} */}
-
-                <Button
-                  type="submit"
-                  className="my-5 rounded-xl w-full  "
-                  name="Update"
-                  onClick={handleSubmit}
-                >
-                  {" "}
-                </Button>
+                  )}
+                </div>
               </div>
             </div>
           </div>

@@ -1,23 +1,25 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import Logo from "../../Assets/Logo.svg";
 import { FaUser } from "react-icons/fa";
 import { FaBars } from "react-icons/fa6";
 
-const Header = () => {
+const Header = ({ cart }) => {
+  const location = useLocation("")
+
   const navigate = useNavigate("");
   const [toggle, setToggle] = useState(false);
 
   const handleToggle = () => {
     setToggle(!toggle);
   };
+
   const handleLogin = () => {
     localStorage.removeItem("AccessToken");
+    localStorage.removeItem("User");
     navigate("/");
   };
-
-  const userLogin = localStorage.getItem("User");
 
   return (
     <header className=" bg-white-600 text-md  bg-[#d3e7fa] text-[#2B79C2]">
@@ -32,47 +34,47 @@ const Header = () => {
             <div className="md:order-1 order-2 md:w-[30rem] w-full">
               <ul className="leading-8  md:flex justify-evenly items-center text-center space-x-3 my-4 lg:flex">
                 <li className="">
-                  <a href="/all-products" className="   hover:underline">
+                  <Link to ='/all-products' className="   hover:underline">
                     New Drops
-                  </a>
+                  </Link>
                 </li>
 
                 <li className="">
-                  <a href="/tops" className="  hover:underline">
+                  <Link to ='/tops' className="  hover:underline">
                     Tops
-                  </a>
+                  </Link>
                 </li>
 
                 <li className="">
-                  <a href="/bottom" className="  hover:underline">
+                  <Link to ='/bottom' className="  hover:underline">
                     Bottom
-                  </a>
+                  </Link>
                 </li>
                 <li className="">
-                  <a href="/accessories" className=" hover:underline">
+                  <Link to ='/accessories' className=" hover:underline">
                     Accesssories
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
           )}
 
           <div className="md:order-2 order-1 flex justify-center items-center flex-shrink-0  lg:flex">
-            <a href="/cart">
+            <Link to="/cart">
               <FaShoppingCart className="w-6 h-6 md:mr-4" />
-            </a>
+            </Link>
 
             {/* {userLogin ? ( */}
-              <a href="/profile">
-                <FaUser className="w-7 h-7 mr-4 border border-[#2b79c2] p-1 rounded-full" />
-              </a>
+            <Link to =''  href="/profile">
+              <FaUser className="w-7 h-7 mr-4 border border-[#2b79c2] p-1 rounded-full" />
+            </Link>
             {/* ) : ( */}
-              <button
-                onClick={handleLogin}
-                className="hidden md:block  px-6 py-2 font-semibold rounded bg-[#2B79C2] text-white"
-              >
-                Log in
-              </button>
+            <button
+              onClick={handleLogin}
+              className="hidden md:block  px-6 py-2 font-semibold rounded bg-[#2B79C2] text-white"
+            >
+              Log in
+            </button>
             {/* )} */}
 
             <button onClick={handleToggle} className="p-4 md:hidden">

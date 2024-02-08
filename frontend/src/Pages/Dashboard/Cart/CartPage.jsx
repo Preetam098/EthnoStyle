@@ -27,6 +27,8 @@ const CartPage = () => {
     });
   };
 
+console.log("bookingdata" , BookingData)
+
   const checkoutHandler = async () => {
     const { totalPrice } = bookingInfo;
     const { name, email, mobileNo, address } = bookingInfo?.userDetail;

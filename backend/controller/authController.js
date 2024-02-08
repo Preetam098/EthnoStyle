@@ -69,10 +69,10 @@ const loginUser = async (req, res) => {
             .status(200)
             .json({ message: "Login Successfully", token, user: responseData });
         } else {
-          res.status(401).send({ message: "Invalid Password" });
+          res.status(400).send({ message: "Invalid Password" });
         }
       } else {
-        res.status(401).send({ message: "Email Not Found" });
+        res.status(400).send({ message: "Email Not Found" });
       }
     } else {
       res.status(400).send("Please Fill All Required Fields");
@@ -194,60 +194,27 @@ const resetPassword = async (req, res) => {
   try {
     const user = await RegisterModel.findById(_id);
     if (!user) {
-      res.status(400);
-      return errorHandler(res, "User not found");
+      return res.status(400).json({ message: "User not found" });
     }
     const isOldPassword = await bcrypt.compare(oldPassword, user.password);
     if (!isOldPassword) {
-      res.status(400);
-      return errorHandler(res, "Old password is incorrect");
+      return res.status(400).json({ message: "Old password is incorrect" });
     }
     const securedPassword = await bcrypt.hash(newPassword, 10);
     await RegisterModel.findByIdAndUpdate(_id, {
       $set: { password: securedPassword },
     });
-    successHandler(res, { message: "Password updated successfully" });
+    res.status(200).json({ message: "Password updated successfully" });
   } catch (error) {
     console.log(error);
-    res.status(400);
-    errorHandler(res, "Error Updating Password");
+    res.status(200).json({ message: "Error Updating Password" });
   }
 };
-
-const updateProfile = async (req, res) => {
-  console.log("ussss", req.user);
-  const { username, mobileNo, dob } = req.body;
-  if (!username && !mobileNo && !dob) {
-    return res.status(400).json({ message:"No valid fields provided for update." });
-  }
-  try {
-    const updatedProfile = await RegisterModel.findByIdAndUpdate(
-      req.user.user,
-      { $set: { username, mobileNo, dob } },
-      { new: true, runValidators: true }
-    );
-    if (!updatedProfile) {
-      return res.status(404).json({ error: "User not found" });
-    }
-    const updateProfile={
-      _id:updatedProfile._id.toString(),
-      username:updatedProfile.username,
-      mobileNo:updatedProfile.mobileNo,
-      dob:updatedProfile.dob,
-    }
-    res.json({ message: "Profile updated successfully", updateProfile });
-  } catch (error) {
-    console.error("Error updating profile:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
 
 module.exports = {
   registerUser,
   loginUser,
   forgotPassword,
   verifyOTP,
-  updateProfile,
   resetPassword,
 };
