@@ -20,10 +20,10 @@ const UserInfo = () => {
     dob: getUserData ? getUserData.dob : "",
   });
 
-  const handelInput = (e) => {
+  const handleInput = (e) => {
     const { name, value } = e.target;
     setUserInfo({ ...userInfo, [name]: value });
-    setError({ ...update, [e.target.name]: " " });
+    setError({ ...error, [e.target.name]: " " });
   };
 
   const handleSubmit = () => {
@@ -54,7 +54,7 @@ const UserInfo = () => {
                     Username
                   </label>
                   <input
-                    onChange={handelInput}
+                    onChange={handleInput}
                     type="text"
                     value={userInfo.username ? userInfo.username : ""}
                     name="username"
@@ -78,7 +78,7 @@ const UserInfo = () => {
                 <div className="flex items-center my-4 ">
                   <label className="w-full block ">Email Address</label>
                   <input
-                    onChange={handelInput}
+                    onChange={handleInput}
                     type="email"
                     name="email"
                     readOnly={true}
@@ -108,7 +108,7 @@ const UserInfo = () => {
                 <div className="flex items-center my-4">
                   <label className="w-full block ">MobileNo</label>
                   <input
-                    onChange={handelInput}
+                    onChange={handleInput}
                     type="number"
                     name="mobileNo"
                     value={userInfo.mobileNo ? userInfo.mobileNo : ""}
@@ -132,7 +132,7 @@ const UserInfo = () => {
                 <div className="flex items-center mb-4">
                   <label className="w-full block  ">Date Of Birth</label>
                   <input
-                    onChange={handelInput}
+                    onChange={handleInput}
                     type="date"
                     value={userInfo.dob ? userInfo.dob : ""}
                     disabled={!isEditMode}

@@ -10,13 +10,11 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const res = useSelector((state) => state.authReducer);
-  console.log("res", res);
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {
     setLoginData({ ...logindata, [e.target.name]: e.target.value });
   };
-  console.log("fomr", logindata);
 
   const handleSubmit = () => {
     const { email, password } = logindata;

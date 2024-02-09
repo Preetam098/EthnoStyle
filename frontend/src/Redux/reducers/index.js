@@ -6,7 +6,7 @@ import productReducer from './productReducer'
 import bannerReducer from './bannerReducer'
 import resetReducer from "./resetReducer";
 import updateReducer from "./updateReducer";
-
+import checkoutReducer from "./checkoutReducers";
 const rootReducer = combineReducers({
   authReduce,
   signReduce,
@@ -15,6 +15,7 @@ const rootReducer = combineReducers({
   productReducer,
   updateReducer,
   bannerReducer,
+  checkoutReducer,
 });
 
 export default rootReducer;

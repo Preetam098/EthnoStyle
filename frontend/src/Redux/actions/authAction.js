@@ -46,17 +46,17 @@ export const registerAction = (payload, callback) => async (dispatch) => {
   }
 };
 
-export const authLogin = (payload, callback) => async (dispatch) => {
+export const authLogin = (payload,callback) => async (dispatch) => {
   dispatch({ type: LOG_IN });
   try {
     const response = await axios.post(login_url, payload);
     const { token, message, user } = response?.data;
     const userData = JSON.stringify(user);
-    dispatch({ type: LOG_IN_SUCCESS, payload: response?.data });
-    toast.success(message);
     localStorage.setItem("AccessToken", token);
     localStorage.setItem("User", userData);
-    callback();
+    toast.success(message);
+    dispatch({ type: LOG_IN_SUCCESS, payload: response?.data });
+    callback()
   } catch (error) {
     const { message } = error?.response?.data;
     dispatch({ type: LOG_IN_FAIL, error });

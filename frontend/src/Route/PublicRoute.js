@@ -3,7 +3,8 @@ import { Navigate, Outlet } from "react-router-dom";
 
 const PublicRoute = () => {
   const isAuth = localStorage.getItem("AccessToken");
-  return !isAuth ? <Outlet /> : <Navigate to={"/"} /> ;
+  return isAuth ? <Navigate to={"/dashboard"} /> : <Outlet />;
 };
+
 
 export default PublicRoute;

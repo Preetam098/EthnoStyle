@@ -39,29 +39,3 @@ const sendMail = async (data) => {
 
 module.exports = { sendMail };
 
-
-// const sendMail = (data) => {
-//   const { purpose, userData } = data;
-//   let transporter = nodemailer.createTransport({
-//     host: "smtp.gmail.com",
-//     port: 587,
-//     secure: false,
-//     auth: {
-//       user: process.env.MAIL_EMAIL,
-//       pass: process.env.MAIL_PASSWORD,
-//     },
-//   });
-
-//   async function main() {
-//     const info = await transporter.sendMail({
-//       from: "preetam@gmail.com", 
-//       to: userData.email, 
-//       subject: purpose, 
-//       html: htmlContent(data),
-//     });
-//   }
-
-//   main().catch(console.error);
-// };
-
-// module.exports = { sendMail };

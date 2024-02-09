@@ -12,10 +12,9 @@ const refeence  = searchQuery.get("reference")
 
   return (
     <React.Fragment>
-    <div className="h-[400px] relative flex items-center justify-center bg-gray-100">
-<ConfettiAnimation/>
-  
-      <div className="absolute z-50 bg-white p-8 rounded shadow-md w-96">
+    <div className="h-[400px] relative flex items-center justify-center ">
+    <ConfettiAnimation/>
+      <div className="absolute m-2 z-50 bg-white p-8 rounded shadow-md max-w-md md:w-96">
         <div className="text-green-600 mb-4">
           {/* Success Icon Animation */}
           <svg
@@ -45,7 +44,6 @@ const refeence  = searchQuery.get("reference")
       </div>
     </div>
 </React.Fragment>
-
   );
 };
 

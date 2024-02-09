@@ -9,5 +9,7 @@ export const update_profile_url = BASEURL + 'profile/update'
 export const get_product_url = BASEURL + 'collections/all-products'
 export const get_banner_list = BASEURL + 'banner/list'
 
+export const get_key_url = BASEURL + 'api/getkey'
+export const send_payment_url = BASEURL+'api/checkout'
 
 

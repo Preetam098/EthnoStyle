@@ -62,7 +62,7 @@ const deleteProduct = async (req, res) => {
     const productDelete = await Products.findByIdAndDelete({_id});
     if (productDelete) {
       res .status(200) .json({ message: "Product Delete Successfully", productDelete });
-      console.log("Product Delete Successfully");
+      // console.log("Product Delete Successfully");
     } else {
       res.status(400).json({ message: "Product Not Delete" });
       console.log("Product Not Delete");

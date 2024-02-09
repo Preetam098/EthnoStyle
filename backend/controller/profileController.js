@@ -4,7 +4,7 @@ const errorHandler = require("../helpers/errorHandler");
 const successHandler = require("../helpers/successHandler");
 
 const updateProfile = async (req, res) => {
-    console.log("ussss", req.user);
+    // console.log("ussss", req.user);
     const { username, mobileNo, dob } = req.body;
   
     // Validate mobile number format

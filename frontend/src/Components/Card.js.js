@@ -1,6 +1,7 @@
 import React from "react";
 import { Button } from "./Button";
 import Layout from "../Layout/Index";
+import { Link } from "react-router-dom";
 
 const Card = () => {
   return (
@@ -28,18 +29,18 @@ const Card = () => {
         </div>
 
         <section className="mb-20">
-          <div class=" flex justify-center items-center">
+          <div class=" grid md:grid-cols-3 grid-cols-1 place-content-center place-items-center">
             {/* <!-- Middle Column - Rotated Image --> */}
-            <div class="w-1/3 flex items-center justify-center">
+            <div class="md:w-1/3 flex items-center justify-center">
               <img
                 src="https://images.unsplash.com/photo-1604702770018-55669959b124?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmFzaGlvbiUyMGdpcmx8ZW58MHx8MHx8fDA%3D"
                 alt="Rotated Image"
-                class="transform overflow-hidden animate-pulse rotate-12 w-2/3 h-auto"
+                class="md:transform overflow-hidden animate-pulse md:rotate-12 md:w-2/3 md:h-auto"
               />
             </div>
-            <div class="w-1/3  grid place-content-center  text-center">
-              <h2 class="text-3xl font-bold ">About us</h2>
-              <h1 class="text-4xl my-5">
+            <div class="md:w-1/3 md:my-0 my-5 grid place-content-center  text-center">
+              <h2 class="text-3xl font-bold mt-6 md:mt-0 ">About us</h2>
+              <h1 class="text-4xl my-4 md:my-5">
                 Creating Style while Redefining comfort
               </h1>
               <p>
@@ -47,30 +48,32 @@ const Card = () => {
                 comfort for the modern man
               </p>
               <div className="mx-auto">
-                <Button
+              <Link to='/all-products'>
+              <Button
                   name="Explore Now "
                   className="my-2 hover:underline  w-40 "
                 />
+              </Link>
               </div>
             </div>
 
             {/* <!-- Right Column - Rotated Image --> */}
-            <div class="w-1/3 flex items-center justify-center">
+            <div class="md:w-1/3 flex items-center justify-center">
               <img
                 src="https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFzaGlvbiUyMGdpcmx8ZW58MHx8MHx8fDA%3D"
                 alt="Rotated Image"
-                class="transform -rotate-12 animate-pulse w-2/3 h-auto"
+                class="transform md:-rotate-12 animate-pulse md:w-2/3 h-auto"
               />
             </div>
           </div>
         </section>
 
-        <div className="mt-16">
+        <div className="md:mt-16">
           <h1 className="font-serif font-bold text-4xl">
             Most Popular Fabrics{" "}
           </h1>
         </div>
-        <section className="grid grid-cols-3 gap-6 place-content-center place-items-center px-2 py-8">
+        <section className="grid grid-cols-2  md:grid-cols-3 gap-6 place-content-center place-items-center md:px-2 py-8">
           <img
             className="border-[1px] border-gray-600"
             src="https://assets.myntassets.com/h_720,q_90,w_540/v1/assets/images/19818628/2022/9/6/ec27eee6-d613-4423-8e0f-007aea1603c31662468109188Shirts1.jpg"

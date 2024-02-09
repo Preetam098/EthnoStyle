@@ -6,9 +6,10 @@ import { FaInstagram } from "react-icons/fa";
 const Footer = () => {
   return (
     <React.Fragment>
+
       <footer className="footer-1 bg-[#2B79C2] py-8 sm:py-12">
         <div className="md:px-2">
-          <div className="text-white grid grid-cols-1 md:grid-cols-5">
+          <div className="text-white grid grid-cols-2 md:grid-cols-5">
             <div className="px-4">
               <h5 className="text-xl font-bold mb-6">Features</h5>
               <ul className= "footer-">
@@ -99,7 +100,7 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div className="">
+            <div className="px-4">
               <h5 className="text-xl font-bold mb-6">About</h5>
               <ul className="list-none footer-links">
                 <li className="mb-2">
@@ -136,7 +137,7 @@ const Footer = () => {
                 </li>
               </ul>
             </div>
-            <div className="">
+            <div className="px-4">
               <h5 className="text-xl font-bold mb-6">Help</h5>
               <ul className="list-none footer-links">
                 <li className="mb-2">
@@ -193,6 +194,9 @@ const Footer = () => {
           </div>
         </div>
       </footer>
+      <p class="bg-[#1b69c2] py-2 text-base text-center text-gray-400">
+            © 2021 EthnoStyle, Inc. All rights reserved.
+        </p>
     </React.Fragment>
   );
 };

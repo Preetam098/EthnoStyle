@@ -1,5 +1,5 @@
 import React , { useEffect} from "react";
-import styled, { keyframes } from "styled-components"; // Make sure to install styled-components
+import styled, { keyframes } from "styled-components"; 
 
 // Styled components for the confetti animation
 const ConfettiContainer = styled.div`
@@ -7,7 +7,7 @@ const ConfettiContainer = styled.div`
   justify-content: center;
   align-items: center;
   position: relative;
-  width: 40%;
+  width: 100%;
   height: 10px;
 
 `;
@@ -49,8 +49,6 @@ const ConfettiPiece = styled.div`
 
 const ConfettiAnimation = () => {
   useEffect(() => {
-    // Add logic to trigger confetti animation on component mount
-    // You can use your own logic or a library like react-spring for more control
   }, []);
 
   return (
