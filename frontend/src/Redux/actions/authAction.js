@@ -134,8 +134,9 @@ export const updateProfile = (payload, callback) => async (dispatch) => {
     dispatch({ type: UPDATE_PROFILE_SUCCESS, payload: response?.data });
     callback();
   } catch (error) {
-    const { message } = error?.response?.data;
-    toast.error(message);
+    // const { message } = error?.response?.data;
+    // toast.error(message);
+    console.log("error" , error)
     dispatch({ type: UPDATE_PROFILE_FAIL });
   }
 };

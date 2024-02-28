@@ -4,20 +4,22 @@ import Dashboard from "./Tabs/Dashboard";
 import MyProfile from "./Tabs/UserInfo";
 import ChangePassword from "./Tabs/ChangePassword";
 import MyBookings from "./Tabs/Bookings";
-import { FaPhoneAlt, FaUser , FaLock } from "react-icons/fa";
+import { FaPhoneAlt, FaUser, FaLock } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { BiSolidDashboard } from "react-icons/bi";
+import User from "../../Assets/User.png";
+import UserInfo from "./Tabs/UserInfo";
 
 const SiderBar = [
   {
     id: 1,
     name: "Dashboard",
-    icon:<BiSolidDashboard className="w-5 h-5"/>
+    icon: <BiSolidDashboard className="w-5 h-5" />,
   },
   {
     id: 2,
     name: "My Profile",
-    icon: <FaUser className="w-5 h-5"/>
+    icon: <FaUser className="w-5 h-5" />,
   },
   {
     id: 3,
@@ -45,14 +47,15 @@ const SiderBar = [
   {
     id: 4,
     name: "Change Password",
-    icon: <FaLock className="w-5 h-5"/>
+    icon: <FaLock className="w-5 h-5" />,
   },
 ];
 
-const UserProfile = () => {
-  const userData = JSON.parse(localStorage.getItem("User"))
+const UserProfile = ({handleName}) => {
+  console.log("nnnnn" , handleName)
+  const userData = JSON.parse(localStorage.getItem("User"));
   const [activeTab, setActiveTab] = useState(1);
-  const [userDetails, setUserDetails] = useState("");
+  const [name, setName] = useState("");
 
   const handleTabClick = (tabId) => {
     setActiveTab(tabId);
@@ -73,7 +76,9 @@ const UserProfile = () => {
     </li>
   );
 
-
+  const handleNameChange = (name) => {
+    setName(name);
+  };
 
   return (
     <React.Fragment>
@@ -84,27 +89,23 @@ const UserProfile = () => {
               <div className="flex items-center gap-4 dark:bg-neutral-300 p-3 ">
                 <img
                   className=" w-36 h-36 bg-gray-400 rounded-full"
-                  src={userData?.avatar}
+                  src={User}
                 ></img>
                 <div>
                   <h4 className="text-3xl font-semibold">
                     Hello{" "}
                     <span className="capitalize text-primary">
-                    {userData?.username}{" "}
+                      {userData?.username }{" "}
                     </span>
                     Welcome
                   </h4>
                   <div className="flex items-center gap-2 text-sm">
-                  <FaPhoneAlt className="text-[#2b79c2]"/>
-                    {userData?.mobileNo}{" "}
-                    <p></p>
+                    <FaPhoneAlt className="text-[#2b79c2]" />
+                    {userData?.mobileNo} <p></p>
                   </div>
                   <div className="flex items-center gap-2 text-sm">
-                  <MdEmail className=" w-4 h-4 text-[#2b79c2]"/>
-                    <p>
-                    {userData?.email}{" "}
-                    
-                    </p>
+                    <MdEmail className=" w-4 h-4 text-[#2b79c2]" />
+                    <p>{userData?.email} </p>
                   </div>
                 </div>
               </div>
@@ -130,7 +131,7 @@ const UserProfile = () => {
                 <div className="w-4/5 py-6">
                   <div className="content">
                     {activeTab === 1 && <Dashboard />}
-                    {activeTab === 2 && <MyProfile /> }
+                    {activeTab === 2 && <MyProfile />}
                     {activeTab === 3 && <MyBookings />}
                     {activeTab === 4 && <ChangePassword />}
                   </div>

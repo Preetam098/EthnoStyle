@@ -29,16 +29,16 @@ const Card = () => {
         </div>
 
         <section className="mb-20">
-          <div class=" grid md:grid-cols-3 grid-cols-1 place-content-center place-items-center">
+          <div class=" grid md:grid-cols-3 grid-cols-1 place-items-center">
             {/* <!-- Middle Column - Rotated Image --> */}
-            <div class="md:w-1/3 flex items-center justify-center">
+            <div class=" flex items-center justify-center">
               <img
                 src="https://images.unsplash.com/photo-1604702770018-55669959b124?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8ZmFzaGlvbiUyMGdpcmx8ZW58MHx8MHx8fDA%3D"
                 alt="Rotated Image"
                 class="md:transform overflow-hidden animate-pulse md:rotate-12 md:w-2/3 md:h-auto"
               />
             </div>
-            <div class="md:w-1/3 md:my-0 my-5 grid place-content-center  text-center">
+            <div class=" md:my-0 my-5 grid place-content-center  text-center">
               <h2 class="text-3xl font-bold mt-6 md:mt-0 ">About us</h2>
               <h1 class="text-4xl my-4 md:my-5">
                 Creating Style while Redefining comfort
@@ -58,7 +58,7 @@ const Card = () => {
             </div>
 
             {/* <!-- Right Column - Rotated Image --> */}
-            <div class="md:w-1/3 flex items-center justify-center">
+            <div class=" flex items-center justify-center">
               <img
                 src="https://images.unsplash.com/photo-1621184455862-c163dfb30e0f?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8ZmFzaGlvbiUyMGdpcmx8ZW58MHx8MHx8fDA%3D"
                 alt="Rotated Image"

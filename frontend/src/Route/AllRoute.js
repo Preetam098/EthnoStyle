@@ -1,9 +1,6 @@
 import { lazy } from "react";
 import React from "react";
-import Header from "../Layout/Header/Header";
-import Footer from "../Layout/Footer/Footer";
 import ForgotPassword from "../Pages/Login/ForgotPassword";
-
 const Login = lazy(() => import("../Pages/Login/login"));
 const Register = lazy(() => import("../Pages/Register/register"));
 const Dashboard = lazy(() => import("../Pages/Dashboard/Dashboard"));

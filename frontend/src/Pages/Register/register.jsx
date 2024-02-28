@@ -102,7 +102,7 @@ export default function Login() {
               <input
                 id="mobileNo"
                 name="mobileNo"
-                type="mobileNo"
+                type="number"
                 value={formValues?.mobileNo}
                 onChange={handleChange}
                 autoComplete="current-mobileNo"

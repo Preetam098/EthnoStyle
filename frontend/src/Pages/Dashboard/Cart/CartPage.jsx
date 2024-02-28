@@ -55,52 +55,6 @@ const CartPage = () => {
 
   console.log("getkey", order);
 
-  // const checkoutHandler = async () => {
-  //   const { totalPrice } = bookingInfo;
-  //   if (validate.allValid()) {
-  //     try {
-  //       const response = await fetch(`${SEND_PORT}api/checkout`, {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({ amount: totalPrice }),
-  //       });
-  //       const { order } = await response.json();
-  //       console.log("orrrder", order);
-  //       const options = {
-  //         key: getKey?.key,
-  //         amount: totalPrice,
-  //         currency: "INR",
-  //         name: "Preetam",
-  //         description: "Test ",
-  //         image: "https://dummyimage.com/250/ffffff/000000",
-  //         order_id: order.id,
-  //         callback_url: `${SEND_PORT}api/paymentVerification`,
-  //         prefill: {
-  //           name: "Preetam",
-  //           email: "preetam@example.com",
-  //           contact: "9999555699",
-  //         },
-  //         notes: {
-  //           address: "Razorpay Corporate Office",
-  //         },
-  //         theme: {
-  //           color: "#121212",
-  //         },
-  //       };
-  //       const razor = new window.Razorpay(options);
-  //       razor.open();
-  //     } catch (error) {
-  //       console.error("Error during checkout:", error);
-  //     }
-  //   } else {
-  //     console.log("nhi chlaa");
-  //     validate.showMessages();
-  //     setError(validate.errorMessages);
-  //   }
-  // };
-
   const checkoutHandler = async () => {
     const { totalPrice } = bookingInfo;
     if (validate.allValid()) {
@@ -163,7 +117,7 @@ const CartPage = () => {
   };
 
   return (
-    <div class="bg-gray-100 py-10">
+    <div class=" py-10">
       <h1 class="mb-10 text-center text-2xl font-bold">Cart Items</h1>
 
       {BookingData.length === 0 ? (

@@ -1,17 +1,13 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Layout from "../../../Layout/Index";
 import { useDispatch, useSelector } from "react-redux";
 import { productAction } from "../../../Redux/actions/productAction";
-import { Link, useNavigate } from "react-router-dom";
-import Header from "../../../Layout/Header/Header";
+import {  useNavigate } from "react-router-dom";
 import toast , {Toaster} from "react-hot-toast";
 
 const NewDrops = () => {
-  const [key, setKey] = useState("");
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [num, setNum] = useState(1);
   const [booking, setBooking] = useState([]);
   const product = useSelector((state) => state?.productReducer?.product);
 
@@ -35,6 +31,8 @@ const NewDrops = () => {
         console.log("2nd");
     }
   };
+
+    
   console.log("booking", booking);
 
   const Inc = (productId) => {

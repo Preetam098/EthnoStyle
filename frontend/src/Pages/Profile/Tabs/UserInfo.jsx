@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import SimpleReactValidator from "simple-react-validator";
 
 import { updateProfile } from "../../../Redux/actions/authAction";
+import Profile from "../Profile";
 
 const UserInfo = () => {
   const getUserData = JSON.parse(localStorage.getItem("User"));
@@ -39,6 +40,8 @@ const UserInfo = () => {
     }
   };
 
+  console.log("ddddd", userInfo?.username);
+
   return (
     <React.Fragment>
       <div className="dark:border-neutral-700 bg-white dark:bg-neutral-800 orderdetails-sec">
@@ -64,7 +67,6 @@ const UserInfo = () => {
                     style={isEditMode ? { border: "2px solid #2b79c2" } : {}}
                   />
                 </div>
-                
 
                 <div className="text-right w-11/12">
                   {validate.message("username", userInfo?.username, "required")}
@@ -94,16 +96,12 @@ const UserInfo = () => {
                   />
                 </div>
 
-
                 <div className="text-right w-11/12">
                   {validate.message("email", userInfo?.email, "required")}
                   {error && (
-                    <p className="text-red-500 my-2 text-sm">
-                      {error?.email}
-                    </p>
+                    <p className="text-red-500 my-2 text-sm">{error?.email}</p>
                   )}
                 </div>
-
 
                 <div className="flex items-center my-4">
                   <label className="w-full block ">MobileNo</label>
@@ -120,14 +118,17 @@ const UserInfo = () => {
                 </div>
 
                 <div className="text-right w-11/12">
-                  {validate.message("mobile No", userInfo?.mobileNo, "required")}
+                  {validate.message(
+                    "mobile No",
+                    userInfo?.mobileNo,
+                    "required"
+                  )}
                   {error && (
                     <p className="text-red-500 my-2 text-sm">
                       {error?.mobileNo}
                     </p>
                   )}
                 </div>
-
 
                 <div className="flex items-center mb-4">
                   <label className="w-full block  ">Date Of Birth</label>
@@ -146,16 +147,15 @@ const UserInfo = () => {
                   />
                 </div>
                 <div className="text-right w-11/12">
-                  {validate.message("date of birth ", userInfo?.dob, "required")}
+                  {validate.message(
+                    "date of birth ",
+                    userInfo?.dob,
+                    "required"
+                  )}
                   {error && (
-                    <p className="text-red-500 my-2 text-sm">
-                      {error?.dob}
-                    </p>
+                    <p className="text-red-500 my-2 text-sm">{error?.dob}</p>
                   )}
                 </div>
-
-
-              
 
                 <div className="my-5">
                   {!isEditMode ? (

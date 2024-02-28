@@ -5,8 +5,6 @@ import PublicRoute from "./PublicRoute";
 import PrivateRoute from "./PrivateRoute";
 import Logo from "../Assets/Logo.svg";
 import { Toaster } from "react-hot-toast";
-import Header from "../Layout/Header/Header";
-import Footer from "../Layout/Footer/Footer";
 
 const App = () => {
   return (
@@ -18,8 +16,6 @@ const App = () => {
       }
     >
       <Toaster />
-      {/* <Header/> */}
-
       <Routes>
         {AllRoutes.map((item) => {
           return (

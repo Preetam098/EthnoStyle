@@ -70,6 +70,5 @@ const DashBoard = () => {
   );
 };
 
-// const WrappedDashboard = Layout(DashBoard);
 
 export default Layout(DashBoard);

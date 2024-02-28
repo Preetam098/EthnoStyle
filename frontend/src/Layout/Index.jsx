@@ -4,10 +4,10 @@ import Footer from "./Footer/Footer";
 import Logo from "../Assets/Logo.svg";
 
 const Layout = (Component) => {
-  return  ()=>(
-    <div className="container mx-auto ">
+  return () => (
+    <div className=" ">
       <Header />
-      <div className="container mx-auto px-2 h-full my-2">
+      <div className=" px-2 h-full my-2">
         <Component />
       </div>
       <Footer />

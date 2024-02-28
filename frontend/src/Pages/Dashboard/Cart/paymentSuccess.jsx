@@ -1,19 +1,35 @@
 import Layout from "../../../Layout/Index";
 import { Button } from "../../../Components/Button";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useSearchParams } from "react-router-dom";
-import ConfettiAnimation from "../../../Components/PartyBomb";
+import Confetti from "react-confetti";
 
 
 // Your main component
-const PaymentSuccess = ({ reference }) => {
+const PaymentSuccess = () => {
+  const [showCelebration, setShowCelebration] = useState(false);
 const searchQuery = useSearchParams()[0]
 const refeence  = searchQuery.get("reference")
 
+
+useEffect(() => {
+  // After 5 seconds, hide the confetti
+  const timeout = setTimeout(() => {
+    setShowCelebration(true);
+  }, 5000);
+
+  // Clear the timeout when the component unmounts
+  return () => clearTimeout(timeout);
+}, []); // 
   return (
     <React.Fragment>
     <div className="h-[400px] relative flex items-center justify-center ">
-    <ConfettiAnimation/>
+    {showCelebration && (
+        <Confetti
+          className="celebration"
+          style={{ width: "100%", height: "80vh", position: "fixed" }}
+        />
+      )}
       <div className="absolute m-2 z-50 bg-white p-8 rounded shadow-md max-w-md md:w-96">
         <div className="text-green-600 mb-4">
           {/* Success Icon Animation */}
