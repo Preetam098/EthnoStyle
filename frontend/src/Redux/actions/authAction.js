@@ -36,7 +36,6 @@ export const registerAction = (payload, callback) => async (dispatch) => {
     console.log("resp", response);
     const { message } = response?.data;
     dispatch({ type: SIGN_UP_SUCCESS });
-
     toast.success(message);
     callback();
   } catch (error) {

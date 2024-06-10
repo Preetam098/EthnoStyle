@@ -11,7 +11,6 @@ const PaymentSuccess = () => {
 const searchQuery = useSearchParams()[0]
 const refeence  = searchQuery.get("reference")
 
-
 useEffect(() => {
   // After 5 seconds, hide the confetti
   const timeout = setTimeout(() => {

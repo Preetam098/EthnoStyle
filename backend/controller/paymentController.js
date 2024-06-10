@@ -9,9 +9,7 @@ const checkoutControl = async (req, res) => {
     currency: "INR",
   };
   const order = await instance.orders.create(options)
-  res
-    .status(200)
-    .json({ success: true, order, Message: "Payment Successfull" });
+  res.status(200).json({ success: true, order, Message: "Payment Successfull" });
 };
 
 //Payment Verify

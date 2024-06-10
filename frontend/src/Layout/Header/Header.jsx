@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { FaShoppingCart } from "react-icons/fa";
 import Logo from "../../Assets/Logo.svg";
+import Web from "../../Assets/webscrappper.png";
 import { FaUser } from "react-icons/fa";
 import { FaBars } from "react-icons/fa6";
 
@@ -27,8 +28,12 @@ const Header = ({ cart }) => {
       <div className="container mx-auto px-2 md:px-6 py-2">
         <div className=" flex  flex-wrap items-center justify-between  ">
           <Link to="/dashboard">
-            <div className="w-48">
-              <img src={Logo}></img>
+            <div className="flex  items-center">
+              <img className="w-20" src={Web}></img>
+
+              <p className="text-xl font-semibold text-[#4d87c9]">
+                Web Scrapper
+              </p>
             </div>
           </Link>
           {(toggle || window.innerWidth >= 768) && (
