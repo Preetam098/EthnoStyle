@@ -4,6 +4,7 @@ const connectDb = require("./config/dbconnect");
 const app = express();
 const port = process.env.PORT;
 const cors = require("cors");
+const { swaggerUi, swaggerSpec } = require('./docs/swagger');
 
 var bodyParser = require("body-parser");
 app.use(bodyParser.json());
@@ -14,9 +15,10 @@ connectDb();
 app.use(cors());
 app.use("/", require("./routes"));
 
-app.get("/getkey", (req, res) => {
-  res.status(200).json({ key: process.env.RAZORPAY_API_KEY });
-});
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+
+
 
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`);

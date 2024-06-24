@@ -5,10 +5,15 @@ const Products = require("../models/productSchema");
 //Get Products
 const getProducts = async (req, res) => {
   try {
-    const products = await Products.find();
+    const { price, title, category } = req.query;
+    const query = {
+      ...(price && { price }),
+      ...(category && { category: { $regex: category, $options: 'i'} }),
+      ...(title && { title: { $regex: title, $options: 'i' } })
+    };
+    const products = await Products.find(query);
     res.status(200).json(products);
   } catch (error) {
-    // Handle errors
     console.error("Error fetching products:", error);
     res.status(500).json({ error: "Internal Server Error" });
   }
